@@ -1,0 +1,17 @@
+:BlogCode	vimrepress.txt	/*:BlogCode*
+:BlogList	vimrepress.txt	/*:BlogList*
+:BlogNew	vimrepress.txt	/*:BlogNew*
+:BlogOpen	vimrepress.txt	/*:BlogOpen*
+:BlogPreview	vimrepress.txt	/*:BlogPreview*
+:BlogSave	vimrepress.txt	/*:BlogSave*
+:BlogSwitch	vimrepress.txt	/*:BlogSwitch*
+:BlogUpload	vimrepress.txt	/*:BlogUpload*
+vimpress-cat	vimrepress.txt	/*vimpress-cat*
+vimpress-commands	vimrepress.txt	/*vimpress-commands*
+vimpress-config	vimrepress.txt	/*vimpress-config*
+vimpress-examples	vimrepress.txt	/*vimpress-examples*
+vimpress-install	vimrepress.txt	/*vimpress-install*
+vimpress-log	vimrepress.txt	/*vimpress-log*
+vimpress-recover	vimrepress.txt	/*vimpress-recover*
+vimpress-tips	vimrepress.txt	/*vimpress-tips*
+vimrepress.txt	vimrepress.txt	/*vimrepress.txt*

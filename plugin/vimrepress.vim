@@ -14,36 +14,36 @@
 " You should have received a copy of the GNU General Public License
 " along with this program; if not, write to the Free Software Foundation,
 " Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  
-" 
-" Maintainer:	Adrien Friggeri <adrien@friggeri.net>
+"
+" Maintainer:   Preston M.[BOYPT] <pentie@gmail.com>
+"
+" Contributors: Adrien Friggeri <adrien@friggeri.net>
 "               Pigeond <http://pigeond.net/blog/>
 "               Justin Sattery <justin.slattery@fzysqr.com>
 "               Lenin Lee <lenin.lee@gmail.com>
 "               Conner McDaniel <connermcd@gmail.com>
 "
-"     Forked:   Preston M.[BOYPT] <pentie@gmail.com>
+" URL:          http://www.friggeri.net/projets/vimblog/
+"               http://pigeond.net/blog/2009/05/07/vimpress-again/
+"               http://pigeond.net/git/?p=vimpress.git
+"               http://apt-blog.net
+"               http://fzysqr.com/
 "
-" URL:		http://www.friggeri.net/projets/vimblog/
-"           http://pigeond.net/blog/2009/05/07/vimpress-again/
-"           http://pigeond.net/git/?p=vimpress.git
-"           http://apt-blog.net
-"           http://fzysqr.com/
-"
-" VimRepress 
+" VimRepress:
 "    - A mod of a mod of a mod of Vimpress.   
-"    - A vim plugin fot writting your wordpress blog.
+"    - A vim plugin for writing to your wordpress blog.
 "
-" Version:	2.1.5
+" Version: 2.1.5
 "
-" Configure: Add blog configure into your .vimrc (password optional)
+" Configure: Add this blog configuration into your .vimrc (password optional)
 "
-" let VIMPRESS=[{'username':'user',
-"               \'password':'pass',
-"               \'blog_url':'http://your-first-blog.com/'
-"               \},
-"               \{'username':'user',
-"               \'blog_url':'http://your-second-blog.com/'
-"               \}]
+"    let VIMPRESS=[{'username':'user',
+"                  \'password':'pass',
+"                  \'blog_url':'http://your-first-blog.com/'
+"                  \},
+"                  \{'username':'user',
+"                  \'blog_url':'http://your-second-blog.com/'
+"                  \}]
 "
 "#######################################################################
 
