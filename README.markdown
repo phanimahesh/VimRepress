@@ -13,25 +13,25 @@ vimscript #1953, which has been broken for years.
 
 ## Command Examples 
 
-Some commands list above contain special usage, example below may clearify them for you. 
+Some of the commands listed above may have a special usage. The examples below might clarify them for you.
 
-   * :BlogList             -  List 30 recent posts. 
-   * :BlogList page        -  List 30 recent pages. 
-   * :BlogList post 100    -  List 100 recent posts. 
+      :BlogList             -  List 30 recent posts. 
+      :BlogList page        -  List 30 recent pages. 
+      :BlogList post 100    -  List 100 recent posts. 
 
-   * :BlogNew post         -  Write an new post. 
-   * :BlogNew page         -  Write an new page. 
+      :BlogNew post         -  Write an new post. 
+      :BlogNew page         -  Write an new page. 
 
-   * :BlogSave             -  Save (defautely published.) 
-   * :BlogSave draft       -  Save as draft. 
+      :BlogSave             -  Save (defautely published.) 
+      :BlogSave draft       -  Save as draft. 
 
-   * :BlogPreview local    -  Preview page/post locally in your browser. 
-   * :BlogPreview publish  -  Same as `:BlogSave publish' with brower opened. 
+      :BlogPreview local    -  Preview page/post locally in your browser. 
+      :BlogPreview publish  -  Same as `:BlogSave publish' with brower opened. 
 
-   * :BlogOpen 679 
-   * :BlogOpen http://your-first-blog.com/archives/679 
-   * :BlogOpen http://your-second-blog.com/?p=679 
-   * :BlogOpen http://your-third-blog.com/with-your-custom-permalink 
+      :BlogOpen 679 
+      :BlogOpen http://your-first-blog.com/archives/679 
+      :BlogOpen http://your-second-blog.com/?p=679 
+      :BlogOpen http://your-third-blog.com/with-your-custom-permalink 
 
 For more detailed information about these commands, type :help vimrepress
 
