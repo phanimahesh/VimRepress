@@ -15,7 +15,7 @@ License:  Same terms as Vim itself (see |license|)
 
 ============================================================================
 
-INSTALL                                               *vimpress-install*
+INSTALL                                               *vimrepress-install*
 
 Download VimRepress and extract it in your .vim directory:
 >
@@ -29,7 +29,7 @@ Or, if you're using pathogen.vim to manage your plugins:
          git clone git://github.com/vim-scripts/VimRepress
 <
 
-CONFIGURE                                             *vimpress-config*
+CONFIGURE                                             *vimrepress-config*
 
 Edit ~/.vimrc , add a variable named VIMPRESS. 
 Multiple blog configurations are supported.
@@ -56,7 +56,7 @@ If you use other distributions (or OSes), refer to your package manager or
 the python-markdown project page: 
 http://www.freewisdom.org/projects/python-markdown/Installation
 
-COMMANDS                                              *vimpress-commands*
+COMMANDS                                              *vimrepress-commands*
 
 Parameters in {braces} are optional:
 
@@ -94,7 +94,7 @@ Parameters in {braces} are optional:
                                                       *:BlogSwitch*
 :BlogSwitch {index}        Switches the current working blog to the next in the 
                            VIMPRESS configuration array or the specified index.
-                           See |vimpress-install| for more information. 
+                           See |vimrepress-install| for more information. 
                            {index}   - array index of blog to switch to
 
                                                       *:BlogUpload*
@@ -111,16 +111,16 @@ Parameters in {braces} are optional:
          </pre>
 <
 
-TIPS                                                  *vimpress-tips*
+TIPS                                                  *vimrepress-tips*
 
-                                                      *vimpress-cat*
+                                                      *vimrepress-cat*
 Categories~
 
 When you're writing a new post and you want to add a category to the meta data, 
 press <CTRL-X><CTRL-U> in |Insert-mode| for category autocompletion using
 'completefunc'. See |compl-function| for more information.
 
-                                                      *vimpress-recover*
+                                                      *vimrepress-recover*
 Recovery~
 
 If you have a slow connection to your blog, there's a chance that gvim will hang
@@ -129,7 +129,7 @@ vim crashes and fails to save, you can recover your post with the Vim's
 recovery options. See |recovery| for more information.
 
 
-EXAMPLES                                              *vimpress-examples*
+EXAMPLES                                              *vimrepress-examples*
 
 >
          :BlogList             -  List 30 recent posts.
@@ -151,7 +151,7 @@ EXAMPLES                                              *vimpress-examples*
          :BlogOpen http://your-third-blog.com/with-your-custom-permalink
 <
 
-CHANGE LOG                                            *vimpress-log*
+CHANGE LOG                                            *vimrepress-log*
 
 2011 May. 15~
          [by Preston]
@@ -172,7 +172,7 @@ CHANGE LOG                                            *vimpress-log*
 2011 Mar. 24~
          [by Lenin Lee]
          Fix: use setl instead of set to set option value;
-         Add: Detect current buffer content before switch to vimpress views, 
+         Add: Detect current buffer content before switch to vimrepress views, 
          open a split buffer to avoid conflicts.
          Add: Commands to manage wordpress pages.
 

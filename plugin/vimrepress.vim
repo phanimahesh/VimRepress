@@ -24,8 +24,8 @@
 "               Conner McDaniel <connermcd@gmail.com>
 "
 " URL:          http://www.friggeri.net/projets/vimblog/
-"               http://pigeond.net/blog/2009/05/07/vimpress-again/
-"               http://pigeond.net/git/?p=vimpress.git
+"               http://pigeond.net/blog/2009/05/07/vimrepress-again/
+"               http://pigeond.net/git/?p=vimrepress.git
 "               http://apt-blog.net
 "               http://fzysqr.com/
 "
@@ -112,8 +112,8 @@ blog_username = None
 blog_password = None
 blog_url = None
 blog_conf_index = 0
-vimpress_view = 'edit'
-vimpress_temp_dir = ''
+vimrepress_view = 'edit'
+vimrepress_temp_dir = ''
 
 mw_api = None
 wp_api = None
@@ -216,7 +216,7 @@ def blog_fill_meta_area(meta):
 
 def blog_get_mkd_attachment(post):
     """
-    Attempts to find a vimpress tag containing a URL for a markdown attachment and parses it.
+    Attempts to find a vimrepress tag containing a URL for a markdown attachment and parses it.
     @params post - the content of a post
     @returns a dictionary with the attachment's content and URL
     """
@@ -247,7 +247,7 @@ def blog_upload_markdown_attachment(post_id, attach_name, mkd_rawtext):
 
     # New Post, new file
     if post_id == '' or attach_name == '':
-        attach_name = "vimpress_%s_mkd.txt" % hex(int(time.time()))[2:]
+        attach_name = "vimrepress_%s_mkd.txt" % hex(int(time.time()))[2:]
         overwrite = False
     else:
         overwrite = True
@@ -306,7 +306,7 @@ def blog_save(pub = "draft"):
     Saves the current editing buffer.
     @params pub - either "draft" or "publish"
     """
-    if vimpress_view != 'edit':
+    if vimrepress_view != 'edit':
         raise VimPressException("Command not available at list view.")
     if pub not in ("publish", "draft"):
         raise VimPressException(":BlogSave draft|publish")
@@ -397,12 +397,12 @@ def blog_new(edit_type = "post"):
     Creates a new editing buffer of specified type.
     @params edit_type - either "post" or "page"
     """
-    global vimpress_view
+    global vimrepress_view
 
     if edit_type.lower() not in ("post", "page"):
         raise VimPressException("Invalid option: %s " % edit_type)
 
-    if vimpress_view.startswith("list"):
+    if vimrepress_view.startswith("list"):
         currentContent = ['']
         for v in list_view_key_map.values():
             if vim.eval("mapcheck('%s')" % v):
@@ -411,7 +411,7 @@ def blog_new(edit_type = "post"):
         currentContent = vim.current.buffer[:]
 
     blog_wise_open_view()
-    vimpress_view = 'edit'
+    vimrepress_view = 'edit'
     meta_dict = dict(edittype = edit_type)
     blog_fill_meta_area(meta_dict)
     vim.current.buffer.append(currentContent)
@@ -426,8 +426,8 @@ def blog_edit(edit_type, post_id):
     @params edit_type - either "post" or "page"
             post_id   - the id of the post or page
     """
-    global vimpress_view
-    vimpress_view = 'edit'
+    global vimrepress_view
+    vimrepress_view = 'edit'
 
     blog_wise_open_view()
 
@@ -488,7 +488,7 @@ def blog_delete(edit_type, post_id):
     @params edit_type - either "page" or "post"
             post_id   - the id of the post or page
     """
-    global vimpress_view
+    global vimrepress_view
     if edit_type.lower() not in ("post", "page"):
         raise VimPressException("Invalid option: %s " % edit_type)
 
@@ -502,7 +502,7 @@ def blog_delete(edit_type, post_id):
     else:
         sys.stdout.write("There was a problem deleting the %s.\n" % edit_type)
 
-    if vimpress_view.startswith("list"):
+    if vimrepress_view.startswith("list"):
         blog_list(edit_type)
 
 @__exception_check
@@ -510,11 +510,11 @@ def blog_list_on_key_press(action):
     """
     Calls blog open on the current line of a listing buffer.
     """
-    global vimpress_view
+    global vimrepress_view
     if action.lower() not in ("open", "delete"):
         raise VimPressException("Invalid option: %s" % action)
 
-    global vimpress_view
+    global vimrepress_view
     row = vim.current.window.cursor[0]
     line = vim.current.buffer[row - 1]
     id = line.split()[0]
@@ -538,9 +538,9 @@ def blog_list_on_key_press(action):
     del vim.current.buffer[:]
     vim.command("setl nomodified")
 
-    if vimpress_view == "list_page":
+    if vimrepress_view == "list_page":
         edit_type = "page"
-    elif vimpress_view == "list_post":
+    elif vimrepress_view == "list_post":
         edit_type = "post"
     else:
         raise VimPressException("Command only available in list view.")
@@ -559,8 +559,8 @@ def blog_list(edit_type = "post", count = "30"):
     @params edit_type - either "post(s)" or "page(s)"
             count     - number to show (only for posts)
     """
-    global vimpress_view
-    vimpress_view = 'list'
+    global vimrepress_view
+    vimrepress_view = 'list'
 
     blog_wise_open_view()
     vim.current.buffer[0] = "\"====== List of %ss in %s =========" % (edit_type.capitalize(), blog_url)
@@ -569,12 +569,12 @@ def blog_list(edit_type = "post", count = "30"):
         raise VimPressException("Invalid option: %s " % edit_type)
 
     if edit_type.lower() in ("post", "posts"):
-        vimpress_view = 'list_post'
+        vimrepress_view = 'list_post'
         allposts = mw_api.getRecentPosts('',blog_username, blog_password, int(count))
         vim.current.buffer.append(\
             [(u"%(postid)s\t%(title)s" % p).encode('utf8') for p in allposts])
     else:
-        vimpress_view = 'list_page'
+        vimrepress_view = 'list_page'
         pages = wp_api.getPageList('', blog_username, blog_password)
         vim.current.buffer.append(\
             [(u"%(page_id)s\t%(page_title)s" % p).encode('utf8') for p in pages])
@@ -594,7 +594,7 @@ def blog_upload_media(file_path):
     Uploads a file to the blog.
     @params file_path - the file's path
     """
-    if vimpress_view != 'edit':
+    if vimrepress_view != 'edit':
         raise VimPressException("Command not available at list view.")
     if not os.path.exists(file_path):
         raise VimPressException("File does not exist: %s" % file_path)
@@ -618,7 +618,7 @@ def blog_upload_media(file_path):
 @__exception_check
 @__vim_encoding_check
 def blog_append_code(code_type = ""):
-    if vimpress_view != 'edit':
+    if vimrepress_view != 'edit':
         raise VimPressException("Command not available at list view.")
     html = \
 """<pre %s>
@@ -642,7 +642,7 @@ def blog_preview(pub = "local"):
                   If "draft", the content is saved as a draft and previewed remotely.
                   If "publish", the content is published and displayed remotely.
     """
-    if vimpress_view != 'edit':
+    if vimrepress_view != 'edit':
         raise VimPressException("Command not available at list view.")
     meta = blog_meta_parse()
     rawtext = '\n'.join(vim.current.buffer[meta["post_begin"]:])
@@ -748,7 +748,7 @@ def blog_update_config():
         vim.command('let s:completable = "%s"' % '|'.join(terms))
 
     except vim.error:
-        raise VimPressException("Could not find vimpress configuration. Please read ':help vimpress' for more information.")
+        raise VimPressException("Could not find vimrepress configuration. Please read ':help vimrepress' for more information.")
     except KeyError, e:
         raise VimPressException("Configuration error: %s" % e)
 
@@ -782,7 +782,7 @@ def blog_config_switch(conf_index = -1):
         blog_conf_index = conf_index
 
     blog_update_config()
-    if vimpress_view.startswith('list'):
+    if vimrepress_view.startswith('list'):
         blog_list()
     sys.stdout.write("Vimpress switched to %s" % blog_url)
 
@@ -792,9 +792,9 @@ def html_preview(text_html, meta):
     @params text_html - the html content
             meta      - a dictionary of the meta data
     """
-    global vimpress_temp_dir
-    if vimpress_temp_dir == '':
-        vimpress_temp_dir = tempfile.mkdtemp(suffix="vimpress")
+    global vimrepress_temp_dir
+    if vimrepress_temp_dir == '':
+        vimrepress_temp_dir = tempfile.mkdtemp(suffix="vimrepress")
     
     html = \
 """<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -810,7 +810,7 @@ def html_preview(text_html, meta):
 </body>
 </html>
 """ % dict(content = text_html, title = meta["title"])
-    with open(os.path.join(vimpress_temp_dir, "vimpress_temp.html"), 'w') as f:
+    with open(os.path.join(vimrepress_temp_dir, "vimrepress_temp.html"), 'w') as f:
         f.write(html)
     webbrowser.open("file://%s" % f.name)
 
@@ -826,5 +826,5 @@ def blog_wise_open_view():
         vim.command('setl nomodified')
     else:
         vim.command(":new")
-    vim.command('setl syntax=blogsyntax')
+    vim.command('setl syntax=vimrepress_syntax')
     vim.command('setl completefunc=Completable')
