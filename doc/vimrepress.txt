@@ -29,14 +29,23 @@ Or, if you're using pathogen.vim to manage your plugins:
          git clone git://github.com/vim-scripts/VimRepress
 <
 
+If you need Markdown support in Ubuntu, simply run 
+>
+         sudo apt-get install python-markdown
+<
+
+If you use other distributions (or OSes), refer to your package manager or 
+the python-markdown project page: 
+http://www.freewisdom.org/projects/python-markdown/Installation
+
 CONFIGURE                                             *vimrepress-config*
 
-Edit ~/.vimrc , add a variable named VIMPRESS. 
+Edit ~/.vimrc , add a variable named VIMREPRESS. 
 Multiple blog configurations are supported.
 
 Example:~
 >
-         let VIMPRESS = [{'username':'user',
+         let VIMREPRESS = [{'username':'user',
                          \'password':'pass',
                          \'blog_url':'http://your-first-blog.com/'
                          \},
@@ -47,14 +56,14 @@ Example:~
 Hardcoding the password is optional. If a password is not provided the 
 plugin will prompt for one the first time it's needed.
 
-If you need Markdown support in Ubuntu, simply run 
->
-         sudo apt-get install python-markdown
-<
+                                                      *g:vimrepress_tags_completable*
 
-If you use other distributions (or OSes), refer to your package manager or 
-the python-markdown project page: 
-http://www.freewisdom.org/projects/python-markdown/Installation
+Wordpress categories are enabled for <C-x><C-u> autocompletion by default. If
+you wish to enable tag autocompletion as well you can set this variable to
+'true' in your ~/.vimrc. This may make the plugin load more slowly.
+>
+         let g:vimrepress_tags_completable = 'true'
+<
 
 COMMANDS                                              *vimrepress-commands*
 
@@ -93,7 +102,7 @@ Parameters in {braces} are optional:
 
                                                       *:BlogSwitch*
 :BlogSwitch {index}        Switches the current working blog to the next in the 
-                           VIMPRESS configuration array or the specified index.
+                           VIMREPRESS configuration array or the specified index.
                            See |vimrepress-install| for more information. 
                            {index}   - array index of blog to switch to
 
