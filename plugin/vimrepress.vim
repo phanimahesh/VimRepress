@@ -126,6 +126,26 @@ tag_re = re.compile(tag_string % dict(url = '(?P<mkd_url>\S+)', file = '(?P<mkd_
 default_meta = dict(strid = "", title = "", slug = "", 
         cats = "", tags = "", editformat = "Markdown", edittype = "post", textattach = '')
 
+class Urllib2Transport(xmlrpclib.Transport):
+    def __init__(self, opener=None, https=False, use_datetime=0):
+        xmlrpclib.Transport.__init__(self, use_datetime)
+        self.opener = opener or urllib2.build_opener()
+        self.https = https
+    
+    def request(self, host, handler, request_body, verbose=0):
+        proto = ('http', 'https')[bool(self.https)]
+        req = urllib2.Request('%s://%s%s' % (proto, host, handler), request_body)
+        req.add_header('User-agent', self.user_agent)
+        self.verbose = verbose
+        return self.parse_response(self.opener.open(req))
+
+
+class HTTPProxyTransport(Urllib2Transport):
+    def __init__(self, proxies, use_datetime=0):
+        opener = urllib2.build_opener(urllib2.ProxyHandler(proxies))
+        Urllib2Transport.__init__(self, opener, use_datetime)
+
+
 class VimPressException(Exception):
     pass
 
@@ -247,7 +267,7 @@ def blog_upload_markdown_attachment(post_id, attach_name, mkd_rawtext):
 
     # New Post, new file
     if post_id == '' or attach_name == '':
-        attach_name = "vimpress_%s_mkd.txt" % hex(int(time.time()))[2:]
+        attach_name = "vimpress_%s_mkd.odt" % hex(int(time.time()))[2:]
         overwrite = False
     else:
         overwrite = True
@@ -736,8 +756,14 @@ def blog_update_config():
         blog_password = config.get('password', '')
         if blog_password == '':
            blog_password = vim_input("Enter password for %s" % blog_url, True)
-        mw_api = xmlrpclib.ServerProxy("%s/xmlrpc.php" % blog_url).metaWeblog
-        wp_api = xmlrpclib.ServerProxy("%s/xmlrpc.php" % blog_url).wp
+        transport = None
+        if (os.getenv("http_proxy")):
+            transport = HTTPProxyTransport ( {
+            'http': os.getenv("http_proxy"),
+            'https': os.getenv("https_proxy")
+            }) 
+        mw_api = xmlrpclib.ServerProxy("%s/xmlrpc.php" % blog_url, transport).metaWeblog
+        wp_api = xmlrpclib.ServerProxy("%s/xmlrpc.php" % blog_url, transport).wp
 
         # Setting tags and categories for completefunc
         terms = []
