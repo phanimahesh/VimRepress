@@ -150,7 +150,7 @@ class HTTPProxyTransport(Urllib2Transport):
         Urllib2Transport.__init__(self, opener, use_datetime)
 
 
-class VimPressException(Exception):
+class VimRepressException(Exception):
     pass
 
 class VimRepressFailedGetMkd(VimRepressException):
