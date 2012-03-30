@@ -172,7 +172,7 @@ def blog_meta_area_update(**kw):
             line = vim.current.buffer[end][1:].strip().split(":")
             k, v = line[0].strip().lower(), ':'.join(line[1:])
             if k in kw:
-                new_line = "\"%s: %s" % (line[0], kw[k])
+                new_line = "\" %s: %s" % (line[0], kw[k])
                 vim.current.buffer[end] = new_line
         end += 1
 
@@ -251,7 +251,7 @@ def blog_upload_markdown_attachment(post_id, attach_name, mkd_rawtext):
 
     # New Post, new file
     if post_id == '' or attach_name == '':
-        attach_name = "vimrepress_%s_mkd.txt" % hex(int(time.time()))[2:]
+        attach_name = "vimrepress_%s_mkd.odt" % hex(int(time.time()))[2:]
         overwrite = False
     else:
         overwrite = True
